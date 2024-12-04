@@ -23,13 +23,15 @@ class WorkWithContracts:
 		validate.validate_type(contracts, set, "Параметр: contracts не является допустимым типом <dict>")
 		self.__contracts = contracts
 
-	def segment_contracts(self):
-		courses = set()
+	def set_segment_contracts(self):
 		for con in self.__contracts:
-			courses.add(con.get_courses)
+			for course in con.get_courses():
+				if not course in self.__segment_contracts:
+					self.__segment_contracts[course] = [con]
+				else:
+					self.__segment_contracts[course].append(con) 
 
-		#TODO реализовать сегментация договоров		
 		return self.__segment_contracts
 
-	def remove_contract():
-		self.remove()
+	def get_segment_contracts(self):
+		return self.__segment_contracts
