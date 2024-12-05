@@ -1,0 +1,4 @@
+Alex: Japanese English
+Brandon: Frontend
+Phiona: Python Patterns Backend
+Shrek: Russian  

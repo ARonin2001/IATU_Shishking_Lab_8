@@ -19,8 +19,8 @@ class ContractForAdditionalEducation(AbstractContractEducation):
 	__student = ""
 	title = ""
 
-	def __init__(self, courses: set, title, student):
-		validate.validate_type(courses, set, "Параметр: courses не является допустимым типом <set>")
+	def __init__(self, courses: set, student, title = "Contracts For Additional Education"):
+		validate.validate_type(courses, set, f"Параметр: courses ({type(courses)}) не является допустимым типом <set>")
 		self.__courses = courses
 		self.title = title
 		self.__student = student
@@ -35,7 +35,7 @@ class ContractForAdditionalEducation(AbstractContractEducation):
 			print(f"Курса {course} не существует в данном договоре")
 
 	def set_courses(self, courses, student):
-		validate.validate_type(courses, set, "Параметр: courses не является допустимым типом <set>")
+		validate.validate_type(courses, set, f"Параметр: courses ({type(courses)}) не является допустимым типом <set>")
 		self.__courses = courses
 		self.__student = student
 

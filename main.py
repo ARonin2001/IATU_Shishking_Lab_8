@@ -3,15 +3,18 @@ from WorkWithContracts import WorkWithContracts
 from DisplayTkinter import DisplayTkinter
 from Diagram import Diagram
 
-def display_diagram():
-	is_diagram_by_courses = True
+def read_courses():
+	with open("numbersList.txt") as file:
+		stringNumbers = [line.strip() for line in file if line.strip()]
 
-	courses = set({"Japanese", "Stingler", "English", "Frontend"})
-	contract = ContractForAdditionalEducation(courses, "suck some dick", "Alex")
-	courses2 = set({"Japanese", "Backend"})
-	contract2 = ContractForAdditionalEducation(courses2, "suck 2", "Simon")
+def display_diagram(courses: dict):
+	is_diagram_by_courses = False
 
-	contracts = set({contract, contract2})
+	contracts = set()
+	for item in courses:
+		contact = ContractForAdditionalEducation(set(courses[item]), item)
+		contracts.add(contact)
+
 	workContracts = WorkWithContracts(contracts)
 
 	segment = workContracts.set_segment_contracts()
@@ -37,8 +40,31 @@ def display_diagram():
 
 	window.display()
 
+def read_courses_file(filename="default.txt"):
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print(f"Ошибка: Файл {filename} не найден.")
+        return None
+
+    result = {}
+    for line in lines:
+        line = line.strip()
+        if line:
+            parts = line.split(":", 1)
+            if len(parts) == 2:
+                name = parts[0].strip()
+                skills = [word.strip() for word in parts[1].split(",")]
+                if ',' not in parts[1]:
+                    skills = [word.strip() for word in parts[1].split()]
+                result[name] = skills
+    return result
+
 def main():
-	display_diagram()
+	courses = read_courses_file()
+
+	display_diagram(courses)
 
 if __name__ == "__main__":
 	main()
